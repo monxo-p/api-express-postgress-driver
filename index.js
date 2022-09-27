@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 
+app.use(express.json());
+
 app.get("/", (req, res) => {
   console.log("Hola mundo");
 });
@@ -10,4 +12,3 @@ app.listen(3000, (error) => {
 });
 
 //module.exports = express
-//prueba
