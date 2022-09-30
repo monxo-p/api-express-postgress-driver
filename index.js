@@ -1,12 +1,28 @@
-const express = require("express"); //Importamos la libreri aexpress
-const app = express(); // Inicializamos la libreria en una constante
-const router = require("./routes");
+const { Router } = require("express");
+const router = Router();
+const {
+  crearMascota,
+  obtenerTodasMascotas,
+  obtenerMascota,
+  modificarMascota,
+  eliminarMascota,
+  apiController,
+  apiSumaController,
+  apiUsuarioController,
+  apiBodyController,
+} = require("../controllers");
 
-// Middlewares --> Obtienen los datos de la peticion antes de que lleguen a nuestra funcion
-app.use(express.json()); // Permitimos comunicacion a traves de un formato JSON
-app.use(express.urlencoded({ extended: false })); //Para recibir datos de formularios
-app.use(router);
+// CRUD de mascotas
+router.post("/mascotas", crearMascota);
+router.get("/mascotas", obtenerTodasMascotas);
+router.get("/mascotas/:idMascota", obtenerMascota);
+router.put("/mascotas/:idMascota", modificarMascota);
+router.delete("/mascotas/:idMascota", eliminarMascota);
 
-app.listen(3000, (error) => {
-  error ? console.log(error) : console.log("Server running");
-});
+// CRUD ejercicio
+router.get("/api", apiController);
+router.get("/api/suma", apiSumaController);
+router.get("/api/usuario/:nombre", apiUsuarioController);
+router.put("/api/body", apiBodyController);
+
+module.exports = router;
